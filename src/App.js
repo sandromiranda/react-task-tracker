@@ -30,12 +30,21 @@ const App = () => {
     setTasks(tasks.filter((task) => task.id !== id))
   }
 
+  //Toggle Reminder
+  const toggleReminder = (id) => {
+    setTasks(
+      tasks.map((task) =>
+        task.id === id ? {...task, reminder: !task.reminder } : task
+      )
+    )
+  }
+
   return (
     //this is actually JSX, not html
     //it will allow to return only one element - on this example is 'div', but could be any other
     <div className='container'>
       <Header />
-      <Tasks tasks={tasks} onDelete={deleteTask} />
+      {tasks.length > 0 ? <Tasks tasks={tasks} onDelete={deleteTask} onToggle={toggleReminder} /> : 'No tasks to show'}
     </div>
   )
 }
