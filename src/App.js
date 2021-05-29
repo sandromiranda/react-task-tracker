@@ -25,12 +25,17 @@ const App = () => {
     },
   ])
 
+  //Delete Task
+  const deleteTask = (id) => {
+    setTasks(tasks.filter((task) => task.id !== id))
+  }
+
   return (
     //this is actually JSX, not html
     //it will allow to return only one element - on this example is 'div', but could be any other
     <div className='container'>
       <Header />
-      <Tasks tasks={tasks}/>
+      <Tasks tasks={tasks} onDelete={deleteTask} />
     </div>
   )
 }
