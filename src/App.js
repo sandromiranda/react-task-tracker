@@ -1,8 +1,10 @@
 import { useState, useEffect } from 'react'
+import { BrowserRouter as Router, Route } from 'react-router-dom'
 import Header from './components/Header'
 import Footer from './components/Footer'
 import Tasks from './components/Tasks'
 import AddTask from './components/AddTask'
+import About from './components/About'
 
 const App = () => {
 
@@ -92,12 +94,20 @@ const App = () => {
   return (
     //this is actually JSX, not html
     //it will allow to return only one element - on this example is 'div', but could be any other
-    <div className='container'>
-      <Header onAdd={() => setShowAddTask(!showAddTask)} showAdd={showAddTask} />
-      {showAddTask && <AddTask onAdd={addTask} />}
-      {tasks.length > 0 ? <Tasks tasks={tasks} onDelete={deleteTask} onToggle={toggleReminder} /> : 'No tasks to show'}
-      <Footer />
-    </div>
+    <Router>
+      <div className='container'>
+        <Header onAdd={() => setShowAddTask(!showAddTask)} showAdd={showAddTask} />
+        
+        <Route path='/' exact render={(props) => (
+          <>
+            {showAddTask && <AddTask onAdd={addTask} />}
+            {tasks.length > 0 ? (<Tasks tasks={tasks} onDelete={deleteTask} onToggle={toggleReminder} />) : ('No tasks to show')}
+          </>
+        )} />
+        <Route path='/about' component={About} />
+        <Footer />
+      </div>
+    </Router>
   )
 }
 
